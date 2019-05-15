@@ -9,16 +9,16 @@
     <sample_rate_in>44100</sample_rate_in>
     <sample_rate_out>44100</sample_rate_out>
     <buffer_size>256</buffer_size>
-    <input_channels>6</input_channels>
-    <output_channels>6</output_channels>
+    <input_channels>2</input_channels>
+    <output_channels>0</output_channels>
 </settings>
 <object>
     <id>1</id>
     <name>select</name>
     <filepath>none</filepath>
     <position>
-        <x>411.000000000</x>
-        <y>170.000000000</y>
+        <x>432.666625977</x>
+        <y>130.000000000</y>
     </position>
     <outlets>
         <link>
@@ -217,7 +217,7 @@
     <vars>
         <var>
             <name>END</name>
-            <value>1.000000000</value>
+            <value>7.000000000</value>
         </var>
         <var>
             <name>START</name>
@@ -293,8 +293,8 @@
     <name>bang</name>
     <filepath>none</filepath>
     <position>
-        <x>410.666656494</x>
-        <y>433.000000000</y>
+        <x>459.402038574</x>
+        <y>592.064208984</y>
     </position>
     <outlets>
         <link>
@@ -317,8 +317,8 @@
     <name>constant</name>
     <filepath>none</filepath>
     <position>
-        <x>62.000000000</x>
-        <y>329.000000000</y>
+        <x>223.666656494</x>
+        <y>366.500000000</y>
     </position>
     <outlets>
         <link>
@@ -371,15 +371,15 @@
     <name>inverter</name>
     <filepath>none</filepath>
     <position>
-        <x>1045.666625977</x>
-        <y>293.000000000</y>
+        <x>1092.166625977</x>
+        <y>317.000000000</y>
     </position>
     <outlets>
         <link>
             <type>0</type>
         </link>
     </outlets>
-    <vars></vars>
+    <vars />
     <inlets>
         <link>
             <type>0</type>
