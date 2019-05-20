@@ -9,8 +9,8 @@
     <sample_rate_in>44100</sample_rate_in>
     <sample_rate_out>44100</sample_rate_out>
     <buffer_size>1024</buffer_size>
-    <input_channels>2</input_channels>
-    <output_channels>0</output_channels>
+    <input_channels>6</input_channels>
+    <output_channels>6</output_channels>
 </settings>
 <object>
     <id>6</id>
@@ -55,8 +55,8 @@
     <name>video viewer</name>
     <filepath>none</filepath>
     <position>
-        <x>896.166625977</x>
-        <y>366.000000000</y>
+        <x>831.666625977</x>
+        <y>308.000000000</y>
     </position>
     <outlets>
         <link>
@@ -182,7 +182,7 @@
     <name>video scale</name>
     <filepath>none</filepath>
     <position>
-        <x>486.666625977</x>
+        <x>486.000000000</x>
         <y>343.000000000</y>
     </position>
     <outlets>
@@ -238,10 +238,10 @@
 <object>
     <id>12</id>
     <name>video player</name>
-    <filepath>/Users/mj/Documents/github/Mosaic_examples/livepatching/video/data/video.mov</filepath>
+    <filepath>/Users/n3m3da/Public/development/of_v0.10.0_osx_release/apps/n3m3da/Mosaic/bin/examples/visualprogramming/Video/data/video.mov</filepath>
     <position>
-        <x>227.000000000</x>
-        <y>313.000000000</y>
+        <x>202.666656494</x>
+        <y>197.000000000</y>
     </position>
     <outlets>
         <link>

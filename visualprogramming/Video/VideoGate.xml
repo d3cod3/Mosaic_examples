@@ -9,8 +9,8 @@
     <sample_rate_in>44100</sample_rate_in>
     <sample_rate_out>44100</sample_rate_out>
     <buffer_size>256</buffer_size>
-    <input_channels>2</input_channels>
-    <output_channels>0</output_channels>
+    <input_channels>6</input_channels>
+    <output_channels>6</output_channels>
 </settings>
 <object>
     <id>2</id>
@@ -62,8 +62,8 @@
     <name>video player</name>
     <filepath>/Users/mj/Documents/Mosaic/practicas/ejemplos_mosaic/livepatching/video/data/video.mov</filepath>
     <position>
-        <x>216.000000000</x>
-        <y>377.000000000</y>
+        <x>187.666656494</x>
+        <y>269.000000000</y>
     </position>
     <outlets>
         <link>
@@ -99,8 +99,8 @@
     <name>video player</name>
     <filepath>/Users/mj/Documents/Mosaic/practicas/ejemplos_mosaic/livepatching/video/data/text.mov</filepath>
     <position>
-        <x>213.000000000</x>
-        <y>650.000000000</y>
+        <x>204.666656494</x>
+        <y>685.000000000</y>
     </position>
     <outlets>
         <link>
@@ -182,8 +182,8 @@
     <name>counter</name>
     <filepath>none</filepath>
     <position>
-        <x>514.666625977</x>
-        <y>223.500000000</y>
+        <x>528.666625977</x>
+        <y>142.000000000</y>
     </position>
     <outlets>
         <link>
@@ -224,8 +224,8 @@
     <name>metronome</name>
     <filepath>none</filepath>
     <position>
-        <x>199.000000000</x>
-        <y>222.000000000</y>
+        <x>227.666656494</x>
+        <y>46.000000000</y>
     </position>
     <outlets>
         <link>
@@ -252,7 +252,7 @@
 <object>
     <id>12</id>
     <name>shader object</name>
-    <filepath>/Users/mj/Documents/Mosaic/examples/livecoding/glsl/FX/hayasakaBlend.frag</filepath>
+    <filepath>/Users/n3m3da/Documents/Mosaic/examples/livecoding/glsl/FX/hayasakaBlend.frag</filepath>
     <position>
         <x>471.000000000</x>
         <y>513.000000000</y>
@@ -300,8 +300,8 @@
     <name>video player</name>
     <filepath>/Users/mj/Documents/Mosaic/practicas/ejemplos_mosaic/livepatching/video/data/videoBn.mov</filepath>
     <position>
-        <x>209.000000000</x>
-        <y>508.000000000</y>
+        <x>208.666656494</x>
+        <y>452.000000000</y>
     </position>
     <outlets>
         <link>
