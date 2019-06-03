@@ -9,8 +9,8 @@
     <sample_rate_in>44100</sample_rate_in>
     <sample_rate_out>44100</sample_rate_out>
     <buffer_size>1024</buffer_size>
-    <input_channels>2</input_channels>
-    <output_channels>0</output_channels>
+    <input_channels>6</input_channels>
+    <output_channels>6</output_channels>
 </settings>
 <object>
     <id>6</id>
@@ -24,7 +24,7 @@
         <link>
             <type>1</type>
             <to>
-                <id>14</id>
+                <id>15</id>
                 <inlet>0</inlet>
             </to>
         </link>
@@ -55,15 +55,24 @@
     <name>video viewer</name>
     <filepath>none</filepath>
     <position>
-        <x>785.666625977</x>
-        <y>349.500000000</y>
+        <x>810.833312988</x>
+        <y>470.000000000</y>
     </position>
     <outlets>
         <link>
             <type>3</type>
         </link>
     </outlets>
-    <vars />
+    <vars>
+        <var>
+            <name>HEIGHT</name>
+            <value>270.000000000</value>
+        </var>
+        <var>
+            <name>WIDTH</name>
+            <value>423.666625977</value>
+        </var>
+    </vars>
     <inlets>
         <link>
             <type>3</type>
@@ -236,16 +245,17 @@
     </inlets>
 </object>
 <object>
-    <id>14</id>
+    <id>15</id>
     <name>video player</name>
-    <filepath>/Users/mj/Documents/github/Mosaic_examples/livepatching/video/data/video.mov</filepath>
+    <filepath>none</filepath>
     <position>
-        <x>222.166656494</x>
-        <y>312.000000000</y>
+        <x>217.666656494</x>
+        <y>210.000000000</y>
     </position>
     <outlets>
         <link>
             <type>3</type>
+            <name>output</name>
             <to>
                 <id>13</id>
                 <inlet>0</inlet>
@@ -269,6 +279,33 @@
         <link>
             <type>0</type>
             <name>volume</name>
+        </link>
+    </inlets>
+</object>
+<object>
+    <id>16</id>
+    <name>comment</name>
+    <filepath>none</filepath>
+    <position>
+        <x>503.666625977</x>
+        <y>68.000000000</y>
+    </position>
+    <outlets>
+        <link>
+            <type>1</type>
+            <name>text</name>
+        </link>
+    </outlets>
+    <text>ADD HERE YOUR VIDEO TEST FILE! MOSAIC VIDEO PLAYER OBJECT ACCEPT .MOV .MP4 .AVI(WINDOWS) .MPG AND .MPEG FILE EXTENSIONS. CODECS IS ANOTHER STORY, DEPENDING OF THE OS YOU&apos;RE USING, YOU&apos;LL HAVE TO CHOOSE WHICH CODEC WORKS AND WHICH WORKS BETTER!</text>
+    <vars></vars>
+    <inlets>
+        <link>
+            <type>0</type>
+            <name>bang</name>
+        </link>
+        <link>
+            <type>1</type>
+            <name>comment</name>
         </link>
     </inlets>
 </object>

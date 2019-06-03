@@ -24,7 +24,7 @@
         <link>
             <type>1</type>
             <to>
-                <id>12</id>
+                <id>13</id>
                 <inlet>0</inlet>
             </to>
         </link>
@@ -55,15 +55,24 @@
     <name>video viewer</name>
     <filepath>none</filepath>
     <position>
-        <x>831.666625977</x>
-        <y>308.000000000</y>
+        <x>844.731750488</x>
+        <y>476.589843750</y>
     </position>
     <outlets>
         <link>
             <type>3</type>
         </link>
     </outlets>
-    <vars />
+    <vars>
+        <var>
+            <name>HEIGHT</name>
+            <value>303.179687500</value>
+        </var>
+        <var>
+            <name>WIDTH</name>
+            <value>619.463500977</value>
+        </var>
+    </vars>
     <inlets>
         <link>
             <type>3</type>
@@ -236,16 +245,17 @@
     </inlets>
 </object>
 <object>
-    <id>12</id>
+    <id>13</id>
     <name>video player</name>
-    <filepath>/Users/n3m3da/Public/development/of_v0.10.0_osx_release/apps/n3m3da/Mosaic/bin/examples/visualprogramming/Video/data/video.mov</filepath>
+    <filepath>none</filepath>
     <position>
-        <x>202.666656494</x>
-        <y>197.000000000</y>
+        <x>220.463531494</x>
+        <y>233.179687500</y>
     </position>
     <outlets>
         <link>
             <type>3</type>
+            <name>output</name>
             <to>
                 <id>11</id>
                 <inlet>0</inlet>
@@ -269,6 +279,34 @@
         <link>
             <type>0</type>
             <name>volume</name>
+        </link>
+    </inlets>
+</object>
+<object>
+    <id>14</id>
+    <name>comment</name>
+    <filepath>none</filepath>
+    <position>
+        <x>761.463500977</x>
+        <y>128.179687500</y>
+    </position>
+    <outlets>
+        <link>
+            <type>1</type>
+            <name>text</name>
+        </link>
+    </outlets>
+    <text>ADD HERE YOUR VIDEO TEST FILE! MOSAIC VIDEO PLAYER OBJECT ACCEPT .MOV .MP4 .AVI(WINDOWS) .MPG AND .MPEG FILE EXTENSIONS. CODECS IS ANOTHER STORY, DEPENDING OF THE OS YOU&apos;RE USING, YOU&apos;LL HAVE TO CHOOSE WHICH CODEC WORKS AND WHICH WORKS BETTER!</text>
+    <vars />
+    <vars></vars>
+    <inlets>
+        <link>
+            <type>0</type>
+            <name>bang</name>
+        </link>
+        <link>
+            <type>1</type>
+            <name>comment</name>
         </link>
     </inlets>
 </object>

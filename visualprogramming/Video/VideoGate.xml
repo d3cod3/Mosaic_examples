@@ -58,84 +58,6 @@
     </inlets>
 </object>
 <object>
-    <id>5</id>
-    <name>video player</name>
-    <filepath>/Users/mj/Documents/Mosaic/practicas/ejemplos_mosaic/livepatching/video/data/video.mov</filepath>
-    <position>
-        <x>187.666656494</x>
-        <y>269.000000000</y>
-    </position>
-    <outlets>
-        <link>
-            <type>3</type>
-            <to>
-                <id>2</id>
-                <inlet>1</inlet>
-            </to>
-        </link>
-    </outlets>
-    <vars />
-    <inlets>
-        <link>
-            <type>1</type>
-            <name>control</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>playhead</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>speed</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>volume</name>
-        </link>
-    </inlets>
-</object>
-<object>
-    <id>7</id>
-    <name>video player</name>
-    <filepath>/Users/mj/Documents/Mosaic/practicas/ejemplos_mosaic/livepatching/video/data/text.mov</filepath>
-    <position>
-        <x>204.666656494</x>
-        <y>685.000000000</y>
-    </position>
-    <outlets>
-        <link>
-            <type>3</type>
-            <to>
-                <id>2</id>
-                <inlet>4</inlet>
-            </to>
-            <to>
-                <id>12</id>
-                <inlet>1</inlet>
-            </to>
-        </link>
-    </outlets>
-    <vars />
-    <inlets>
-        <link>
-            <type>1</type>
-            <name>control</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>playhead</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>speed</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>volume</name>
-        </link>
-    </inlets>
-</object>
-<object>
     <id>8</id>
     <name>player controls</name>
     <filepath>none</filepath>
@@ -147,15 +69,15 @@
         <link>
             <type>1</type>
             <to>
-                <id>5</id>
+                <id>17</id>
                 <inlet>0</inlet>
             </to>
             <to>
-                <id>7</id>
+                <id>16</id>
                 <inlet>0</inlet>
             </to>
             <to>
-                <id>13</id>
+                <id>18</id>
                 <inlet>0</inlet>
             </to>
         </link>
@@ -296,23 +218,77 @@
     </inlets>
 </object>
 <object>
-    <id>13</id>
-    <name>video player</name>
-    <filepath>/Users/mj/Documents/Mosaic/practicas/ejemplos_mosaic/livepatching/video/data/videoBn.mov</filepath>
+    <id>14</id>
+    <name>video viewer</name>
+    <filepath>none</filepath>
     <position>
-        <x>208.666656494</x>
-        <y>452.000000000</y>
+        <x>1071.833251953</x>
+        <y>381.500000000</y>
     </position>
     <outlets>
         <link>
             <type>3</type>
+        </link>
+    </outlets>
+    <vars>
+        <var>
+            <name>HEIGHT</name>
+            <value>313.000000000</value>
+        </var>
+        <var>
+            <name>WIDTH</name>
+            <value>429.666625977</value>
+        </var>
+    </vars>
+    <inlets>
+        <link>
+            <type>3</type>
+            <name>texture</name>
+        </link>
+    </inlets>
+</object>
+<object>
+    <id>15</id>
+    <name>comment</name>
+    <filepath>none</filepath>
+    <position>
+        <x>838.666625977</x>
+        <y>58.500000000</y>
+    </position>
+    <outlets>
+        <link>
+            <type>1</type>
+            <name>text</name>
+        </link>
+    </outlets>
+    <text>ADD HERE YOUR VIDEO TEST FILES! MOSAIC VIDEO PLAYER OBJECT ACCEPT .MOV .MP4 .AVI(WINDOWS) .MPG AND .MPEG FILE EXTENSIONS. CODECS IS ANOTHER STORY, DEPENDING OF THE OS YOU&apos;RE USING, YOU&apos;LL HAVE TO CHOOSE WHICH CODEC WORKS AND WHICH WORKS BETTER!</text>
+    <vars></vars>
+    <inlets>
+        <link>
+            <type>0</type>
+            <name>bang</name>
+        </link>
+        <link>
+            <type>1</type>
+            <name>comment</name>
+        </link>
+    </inlets>
+</object>
+<object>
+    <id>16</id>
+    <name>video player</name>
+    <filepath>none</filepath>
+    <position>
+        <x>119.666656494</x>
+        <y>225.000000000</y>
+    </position>
+    <outlets>
+        <link>
+            <type>3</type>
+            <name>output</name>
             <to>
                 <id>2</id>
-                <inlet>2</inlet>
-            </to>
-            <to>
-                <id>12</id>
-                <inlet>0</inlet>
+                <inlet>1</inlet>
             </to>
         </link>
     </outlets>
@@ -337,23 +313,86 @@
     </inlets>
 </object>
 <object>
-    <id>14</id>
-    <name>video viewer</name>
+    <id>17</id>
+    <name>video player</name>
     <filepath>none</filepath>
     <position>
-        <x>1029.666625977</x>
-        <y>453.000000000</y>
+        <x>177.666656494</x>
+        <y>392.000000000</y>
     </position>
     <outlets>
         <link>
             <type>3</type>
+            <name>output</name>
+            <to>
+                <id>12</id>
+                <inlet>0</inlet>
+            </to>
+            <to>
+                <id>2</id>
+                <inlet>2</inlet>
+            </to>
         </link>
     </outlets>
     <vars />
     <inlets>
         <link>
+            <type>1</type>
+            <name>control</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>playhead</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>speed</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>volume</name>
+        </link>
+    </inlets>
+</object>
+<object>
+    <id>18</id>
+    <name>video player</name>
+    <filepath>none</filepath>
+    <position>
+        <x>209.666656494</x>
+        <y>693.000000000</y>
+    </position>
+    <outlets>
+        <link>
             <type>3</type>
-            <name>texture</name>
+            <name>output</name>
+            <to>
+                <id>12</id>
+                <inlet>1</inlet>
+            </to>
+            <to>
+                <id>2</id>
+                <inlet>4</inlet>
+            </to>
+        </link>
+    </outlets>
+    <vars />
+    <inlets>
+        <link>
+            <type>1</type>
+            <name>control</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>playhead</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>speed</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>volume</name>
         </link>
     </inlets>
 </object>
