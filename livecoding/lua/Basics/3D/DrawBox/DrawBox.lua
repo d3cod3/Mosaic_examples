@@ -13,7 +13,8 @@
 --	----------------------------------------------------------
 --
 --
---	DrawBox.lua: This example show how to draw the box primitives and a basic use of
+--	Basics/3D/DrawBox.lua:
+--  This example show how to draw the box primitives and a basic use of
 --	lights in a 3D environment.
 --
 --
