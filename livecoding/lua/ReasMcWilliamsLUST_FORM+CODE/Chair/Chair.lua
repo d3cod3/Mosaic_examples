@@ -22,6 +22,7 @@
 --  http://formandcode.com
 --
 -- created by n3m3da | www.d3cod3.org
+-- translated from GAmuza examples by ferhoyo https://github.com/ferhoyo
 --
 --
 

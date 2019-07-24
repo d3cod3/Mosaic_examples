@@ -13,8 +13,8 @@
 --	----------------------------------------------------------
 --
 --
---	ContourTracking_convexHull.lua: Example receiving vector data from Mosaic "contour tracking" object
---  fourth outlet (tracked convex hulls)
+--	BlobTracking.lua: Example receiving vector data from Mosaic "contour tracking" object
+--  second outlet (tracked blobs data)
 --
 --	you can try running this script in patch example: examples/visualprogramming/ComputerVision/ContourTracking.xml
 --
@@ -30,19 +30,35 @@ mouseY = 0
 
 tableSize = 0
 
--- contours variables
+-- blobs variables
 
--- convex hull vector from "contour tracking" Mosaic object is constructed as follows:
+-- blobs vector from "contour tracking" Mosaic object is constructed as follows:
 --
 -- REMEMBER, A LUA TABLE START INDEX IS 1, NOT 0 !!!
 --
 -- [1] -> number of active blobs
--- [2] -> number of contour vertices
--- [3] -> blob ID
--- [4] -> blob age (milliseconds)
--- [5 - 5+(_mosaic_data_inlet[2] * 2)] -> blob contour vertices
+-- [2] -> blob ID					---> accessible as _mosaic_data_inlet[2 + 16*N] for N blobs
+-- [3] -> blob age (milliseconds)
+-- [4] -> blob centroid X
+-- [5] -> blob centroid Y
+-- [6] -> blob average X
+-- [7] -> blob average Y
+-- [8] -> blob center X
+-- [9] -> blob center Y
+-- [10] -> blob velocity X
+-- [11] -> blob velocity Y
+-- [12] -> blob area
+-- [13] -> blob perimeter
+-- [14] -> blob bounding rect X		---> accessible as _mosaic_data_inlet[14 + 16*N] for N blobs
+-- [15] -> blob bounding rect Y
+-- [16] -> blob bounding rect Width
+-- [17] -> blob bounding rect Height
+--
 
 numBlobs = 0
+
+-- for visualizing velocity vector
+ground = of.Vec2f(1,0)
 
 ----------------------------------------------------
 function setup()
@@ -66,7 +82,7 @@ end
 function draw()
 	of.setColor(0,0,0,10)
 	of.drawRectangle(0,0,OUTPUT_WIDTH,OUTPUT_HEIGHT)
-	of.background(0,0,0)
+	--of.background(0,0,0)
 	of.setCircleResolution(50)
 
 	----------------------------------------- RECEIVING vector<float> from MOSAIC PATCH
@@ -83,35 +99,30 @@ function draw()
 	-----------------------------------------
 
 
-	----------------------------------------- Drawing convex hulls from contours
-	of.setLineWidth(1)
-	of.fill()
-	of.setColor(31,165,210)
+	----------------------------------------- Drawing blobs
+	of.setLineWidth(3)
+	of.noFill()
 
 	numBlobs = _mosaic_data_inlet[1]
 
-	nextIndex = 2
 	for j=0, numBlobs-1 do
+		x = _mosaic_data_inlet[14 + 16*j]
+		y = _mosaic_data_inlet[15 + 16*j]
+		w = _mosaic_data_inlet[16 + 16*j]
+		h = _mosaic_data_inlet[17 + 16*j]
 
-		numVertices = _mosaic_data_inlet[nextIndex]*2
+		of.setColor(31,165,210)
+		of.drawRectangle(x,y,w,h)
 
-		contour = of.Polyline()
+		center = of.Vec2f(_mosaic_data_inlet[4 + 16*j],_mosaic_data_inlet[5 + 16*j])
+		vel = of.Vec2f(_mosaic_data_inlet[10 + 16*j]*10,_mosaic_data_inlet[11 + 16*j]*10)
 
-		if numVertices then
-			for i=0, numVertices-1, 2 do
-				x = _mosaic_data_inlet[nextIndex+3+i]
-				y = _mosaic_data_inlet[nextIndex+3+i+1]
-				if x and y then
-					contour:addVertex(x,y,0)
-				end
-			end
+		of.setColor(255)
+		drawVector(vel,center,1)
 
-			contour:draw()
-
-			nextIndex = nextIndex + numVertices + 3
-		end
-
+		of.drawBitmapString(string.format("%s:%s",_mosaic_data_inlet[2 + 16*j],_mosaic_data_inlet[3 + 16*j]),x,y-6)
 	end
+
 
 end
 
@@ -148,4 +159,20 @@ end
 
 function mouseScrolled(x,y)
 
+end
+
+
+-- custom functions
+
+----------------------------------------------------
+function drawVector(v,loc,scayl)
+	of.pushMatrix()
+	arrowSize = 10
+	of.translate(loc.x,loc.y,0)
+	of.rotateDeg(-v:angle(ground)) -- heading2D -->  -v:angle(ofVec2f(1,0))
+	len = v:length()*scayl
+	of.drawLine(0,0,len,0)
+	of.drawLine(len,0,len-arrowSize,arrowSize/2)
+	of.drawLine(len,0,len-arrowSize,-arrowSize/2)
+	of.popMatrix()
 end

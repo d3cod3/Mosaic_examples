@@ -27,6 +27,7 @@
 -- 	http://www.contextfreeart.org/gallery/view.php?id=4
 --
 -- 	created by n3m3da | www.d3cod3.org
+-- translated from GAmuza examples by ferhoyo https://github.com/ferhoyo
 --
 --
 

@@ -13,8 +13,8 @@
 --	----------------------------------------------------------
 --
 --
---	ContourTracking_contour.lua: Example receiving vector data from Mosaic "contour tracking" object
---  third outlet (tracked contours)
+--	ConvexHullTracking.lua: Example receiving vector data from Mosaic "contour tracking" object
+--  fourth outlet (tracked convex hulls)
 --
 --	you can try running this script in patch example: examples/visualprogramming/ComputerVision/ContourTracking.xml
 --
@@ -32,7 +32,7 @@ tableSize = 0
 
 -- contours variables
 
--- contours vector from "contour tracking" Mosaic object is constructed as follows:
+-- convex hull vector from "contour tracking" Mosaic object is constructed as follows:
 --
 -- REMEMBER, A LUA TABLE START INDEX IS 1, NOT 0 !!!
 --
@@ -83,9 +83,10 @@ function draw()
 	-----------------------------------------
 
 
-	----------------------------------------- Drawing contours
+	----------------------------------------- Drawing convex hulls from contours
 	of.setLineWidth(1)
 	of.fill()
+	of.setColor(31,165,210)
 
 	numBlobs = _mosaic_data_inlet[1]
 
@@ -105,7 +106,6 @@ function draw()
 				end
 			end
 
-			of.setColor(255)
 			contour:draw()
 
 			nextIndex = nextIndex + numVertices + 3

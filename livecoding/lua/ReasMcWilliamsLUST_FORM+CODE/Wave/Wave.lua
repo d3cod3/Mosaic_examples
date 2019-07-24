@@ -24,6 +24,8 @@
 --
 --
 -- created by n3m3da | www.d3cod3.org
+-- translated from GAmuza examples by ferhoyo https://github.com/ferhoyo
+--
 
 -- variables for mouse interaction (DO NOT DELETE)
 mouseX = 0
