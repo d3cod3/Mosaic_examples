@@ -92,12 +92,8 @@
         <link>
             <type>0</type>
             <to>
-                <id>11</id>
-                <inlet>3</inlet>
-            </to>
-            <to>
-                <id>11</id>
-                <inlet>4</inlet>
+                <id>16</id>
+                <inlet>2</inlet>
             </to>
         </link>
     </outlets>
@@ -165,12 +161,16 @@
     <name>constant</name>
     <filepath>none</filepath>
     <position>
-        <x>226.166656494</x>
-        <y>546.500000000</y>
+        <x>226.000000000</x>
+        <y>546.000000000</y>
     </position>
     <outlets>
         <link>
             <type>0</type>
+            <to>
+                <id>16</id>
+                <inlet>1</inlet>
+            </to>
         </link>
     </outlets>
     <vars>
@@ -187,77 +187,19 @@
     </inlets>
 </object>
 <object>
-    <id>11</id>
-    <name>video scale</name>
-    <filepath>none</filepath>
-    <position>
-        <x>486.000000000</x>
-        <y>343.000000000</y>
-    </position>
-    <outlets>
-        <link>
-            <type>3</type>
-            <to>
-                <id>7</id>
-                <inlet>0</inlet>
-            </to>
-        </link>
-    </outlets>
-    <vars>
-        <var>
-            <name>HEIGHT</name>
-            <value>38.000000000</value>
-        </var>
-        <var>
-            <name>POSX</name>
-            <value>1089.490234375</value>
-        </var>
-        <var>
-            <name>POSY</name>
-            <value>888.461547852</value>
-        </var>
-        <var>
-            <name>WIDTH</name>
-            <value>38.000000000</value>
-        </var>
-    </vars>
-    <inlets>
-        <link>
-            <type>3</type>
-            <name>input</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>x</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>y</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>width</name>
-        </link>
-        <link>
-            <type>0</type>
-            <name>height</name>
-        </link>
-    </inlets>
-</object>
-<object>
     <id>13</id>
     <name>video player</name>
     <filepath>none</filepath>
     <position>
-        <x>220.463531494</x>
-        <y>233.179687500</y>
+        <x>220.000000000</x>
+        <y>233.000000000</y>
     </position>
     <outlets>
         <link>
             <type>3</type>
             <name>output</name>
             <to>
-                <id>11</id>
+                <id>16</id>
                 <inlet>0</inlet>
             </to>
         </link>
@@ -287,8 +229,8 @@
     <name>comment</name>
     <filepath>none</filepath>
     <position>
-        <x>761.463500977</x>
-        <y>128.179687500</y>
+        <x>761.000000000</x>
+        <y>128.000000000</y>
     </position>
     <outlets>
         <link>
@@ -296,9 +238,9 @@
             <name>text</name>
         </link>
     </outlets>
-    <text>ADD HERE YOUR VIDEO TEST FILE! MOSAIC VIDEO PLAYER OBJECT ACCEPT .MOV .MP4 .AVI(WINDOWS) .MPG AND .MPEG FILE EXTENSIONS. CODECS IS ANOTHER STORY, DEPENDING OF THE OS YOU&apos;RE USING, YOU&apos;LL HAVE TO CHOOSE WHICH CODEC WORKS AND WHICH WORKS BETTER!</text>
+    <text>ADD HERE YOUR VIDEO TEST FILE! MOSAIC VIDEO PLAYER OBJECT ACCEPT .MOV .MP4 .AVI(WINDOWS) .MPG AND .MPEG FILE EXTENSIONS. CODECS IS ANOTHER STORY, DEPENDING OF THE OS YOU&apos;RE USING, YOU&apos;LL HAVE TO CHOOSE WHICH CODEC WORKS AND WHICH ONE WORKS BETTER!</text>
     <vars />
-    <vars></vars>
+    <vars />
     <inlets>
         <link>
             <type>0</type>
@@ -307,6 +249,151 @@
         <link>
             <type>1</type>
             <name>comment</name>
+        </link>
+    </inlets>
+</object>
+<object>
+    <id>15</id>
+    <name>audio device</name>
+    <filepath>none</filepath>
+    <position>
+        <x>-175.333343506</x>
+        <y>786.000000000</y>
+    </position>
+    <outlets>
+        <link>
+            <type>4</type>
+            <name>audioInputCH_0</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>audioInputCH_1</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>audioInputCH_2</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>audioInputCH_3</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>audioInputCH_4</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>audioInputCH_5</name>
+        </link>
+    </outlets>
+    <vars />
+    <inlets>
+        <link>
+            <type>4</type>
+            <name>OUT_0</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>OUT_1</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>OUT_2</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>OUT_3</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>OUT_4</name>
+        </link>
+        <link>
+            <type>4</type>
+            <name>OUT_5</name>
+        </link>
+    </inlets>
+</object>
+<object>
+    <id>16</id>
+    <name>video transform</name>
+    <filepath>none</filepath>
+    <position>
+        <x>466.666625977</x>
+        <y>329.000000000</y>
+    </position>
+    <outlets>
+        <link>
+            <type>3</type>
+            <name>transformedOutput</name>
+            <to>
+                <id>7</id>
+                <inlet>0</inlet>
+            </to>
+        </link>
+    </outlets>
+    <vars>
+        <var>
+            <name>ANGLEX</name>
+            <value>360.000000000</value>
+        </var>
+        <var>
+            <name>ANGLEY</name>
+            <value>360.000000000</value>
+        </var>
+        <var>
+            <name>ANGLEZ</name>
+            <value>360.000000000</value>
+        </var>
+        <var>
+            <name>HEIGHT</name>
+            <value>720.000000000</value>
+        </var>
+        <var>
+            <name>POSX</name>
+            <value>0.001000000</value>
+        </var>
+        <var>
+            <name>POSY</name>
+            <value>0.001000000</value>
+        </var>
+        <var>
+            <name>WIDTH</name>
+            <value>1280.000000000</value>
+        </var>
+    </vars>
+    <inlets>
+        <link>
+            <type>3</type>
+            <name>input</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>x</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>y</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>width</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>height</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>angleX</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>angleY</name>
+        </link>
+        <link>
+            <type>0</type>
+            <name>angleZ</name>
         </link>
     </inlets>
 </object>

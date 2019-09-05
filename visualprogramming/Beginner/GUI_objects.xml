@@ -17,8 +17,8 @@
     <name>audio device</name>
     <filepath>none</filepath>
     <position>
-        <x>937.666625977</x>
-        <y>731.000000000</y>
+        <x>948.850219727</x>
+        <y>760.683593750</y>
     </position>
     <outlets>
         <link>
@@ -46,7 +46,7 @@
             <name>audioInputCH_5</name>
         </link>
     </outlets>
-    <vars />
+    <vars></vars>
     <inlets>
         <link>
             <type>4</type>
@@ -309,7 +309,7 @@
         </link>
     </outlets>
     <text>gui --&gt; sonogram object, an audio fft sonogram visualizer, work in conjuction of the fft extractor object powered by the audio anallyzer object</text>
-    <vars></vars>
+    <vars />
     <inlets>
         <link>
             <type>0</type>
