@@ -14,18 +14,14 @@
 --	----------------------------------------------------------
 --
 --
---	empty.lua: A Lua script template for Mosaic,
---	mimicking the standard OF app structure
+--	HaarTracking.lua: Receive and visualize ( in a funny way ) Haar Tracking data ( using frontal face ) from Mosaic
 
----------------------------------- MOSAIC SPECIFIC CODING INFO
 
--- Mosaic system variable for loading external resources (files)
--- Example:
--- img = of.Image()
--- img:load(SCRIPT_PATH .. "/data/test.jpg")
-
----------------------------------- MOSAIC SPECIFIC CODING INFO
-
+-- -------------------- IMPORTANT -------------------------------------------------------------------------
+--  _mosaic_data_inlet is the name of the lua table storing data incoming from a Mosaic patch
+--  a vector<float> is automatically converted to a lua table, where the index starts from 1, NOT 0 !!!!
+--  so the first position of your table will be accessed like this: _mosaic_data_inlet[1]
+-- -------------------- IMPORTANT -------------------------------------------------------------------------
 
 ----------------------------------- MOSAIC VARS (DO NOT TOUCH)
 
@@ -39,7 +35,25 @@ mosaic_data_inlet_size = 0
 
 ----------------------------------- MY VARS
 
--- add here your variables
+-- in this example ( examples/visualProgramming/ComputerVision/haarTracking )
+-- we are receiving the data in the following order:
+
+-- blobs vector from "haar tracking" Mosaic object is constructed as follows:
+--
+--
+-- [1] -> number of active haar blobs
+-- [2] -> blob ID									---> accessible as _mosaic_data_inlet[2 + 8*N] for N blobs
+-- [3] -> blob age (milliseconds)
+-- [4] -> blob center X
+-- [5] -> blob center Y
+-- [6] -> blob bounding rect X		---> accessible as _mosaic_data_inlet[6 + 8*N] for N blobs
+-- [7] -> blob bounding rect Y
+-- [8] -> blob bounding rect Width
+-- [9] -> blob bounding rect Height
+--
+
+numBlobs = 0
+teletubbyFace = of.Image()
 
 ----------------------------------- MY VARS
 
@@ -53,6 +67,7 @@ function setup()
 	------------------------------------------------ MY CODE
 
 	-- add here your setup code
+	teletubbyFace:load(SCRIPT_PATH .. "/teletubby.png")
 
 	------------------------------------------------ MY CODE
 
@@ -63,11 +78,6 @@ function update()
 
 	------------------------------------------------ MOSAIC CODE
 	mosaic_data_inlet_size = getMosaicDataInletSize()
-
-	-- send data to _mosaic_data_outlet if needed
-	-- we are using here just the first position of the table
-	-- but you can expand it with numerical data as you need it
-	_mosaic_data_outlet[1] = of.random(10)
 	------------------------------------------------ MOSAIC CODE
 
 	------------------------------------------------ MY CODE
@@ -91,6 +101,43 @@ function draw()
 	mosaicBackground(0,0,0,255)
 
 	-- add here your draw code
+
+	----------------------------------------- Drawing blobs
+
+	-- in this example ( examples/visualProgramming/ComputerVision/haarTracking )
+	-- we are receiving the data in the following order:
+
+	-- blobs vector from "haar tracking" Mosaic object is constructed as follows:
+	--
+	--
+	-- [1] -> number of active haar blobs
+	-- [2] -> blob ID									---> accessible as _mosaic_data_inlet[2 + 8*N] for N blobs
+	-- [3] -> blob age (milliseconds)
+	-- [4] -> blob center X
+	-- [5] -> blob center Y
+	-- [6] -> blob bounding rect X		---> accessible as _mosaic_data_inlet[6 + 8*N] for N blobs
+	-- [7] -> blob bounding rect Y
+	-- [8] -> blob bounding rect Width
+	-- [9] -> blob bounding rect Height
+
+	of.setLineWidth(3)
+	of.noFill()
+
+	numBlobs = _mosaic_data_inlet[1]
+
+	for j=0, numBlobs-1 do
+		x = _mosaic_data_inlet[6 + 8*j]
+		y = _mosaic_data_inlet[7 + 8*j]
+		w = _mosaic_data_inlet[8 + 8*j]
+		h = _mosaic_data_inlet[9 + 8*j]
+
+		center = of.Vec2f(_mosaic_data_inlet[4 + 8*j],_mosaic_data_inlet[5 + 8*j])
+
+		of.setColor(255)
+		of.drawBitmapString(string.format("%s:%s",_mosaic_data_inlet[2 + 8*j],_mosaic_data_inlet[3 + 8*j]),x,y-6)
+
+		teletubbyFace:draw(x,y,w,h)
+	end
 
 	------------------------------------------------ MY CODE
 
@@ -138,38 +185,6 @@ function mouseScrolled(x,y)
 
 end
 
-----------------------------------------------------
-
--- MOSAIC custom methods
-
-function mosaicBackground(r,g,b,a)
-	of.setColor(r,g,b,a)
-	of.drawRectangle(0,0,OUTPUT_WIDTH,OUTPUT_HEIGHT)
-end
-
-function checkMosaicDataInlet()
-	-- first check if we are using the data inlet
-	if USING_DATA_INLET then
-		-- avoid null readings
-		if next(_mosaic_data_inlet) == nil then
-			return
-		end
-	end
-end
-
-function getMosaicDataInletSize()
-	if USING_DATA_INLET then
-		checkMosaicDataInlet()
-		-- get _mosaic_data_inlet size
-		tableSize = 0
-		for k,v in pairs(_mosaic_data_inlet) do
-			tableSize = tableSize + 1
-		end
-		return tableSize
-	else
-		return 0
-	end
-end
 
 ----------------------------------------------------
 

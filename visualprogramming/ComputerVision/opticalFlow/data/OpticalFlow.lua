@@ -14,17 +14,13 @@
 --	----------------------------------------------------------
 --
 --
---	empty.lua: A Lua script template for Mosaic,
---	mimicking the standard OF app structure
+--	OpticalFlow.lua: Receive and visualize Optical Flow data from Mosaic
 
----------------------------------- MOSAIC SPECIFIC CODING INFO
-
--- Mosaic system variable for loading external resources (files)
--- Example:
--- img = of.Image()
--- img:load(SCRIPT_PATH .. "/data/test.jpg")
-
----------------------------------- MOSAIC SPECIFIC CODING INFO
+-- -------------------- IMPORTANT -------------------------------------------------------------------------
+--  _mosaic_data_inlet is the name of the lua table storing data incoming from a Mosaic patch
+--  a vector<float> is automatically converted to a lua table, where the index starts from 1, NOT 0 !!!!
+--  so the first position of your table will be accessed like this: _mosaic_data_inlet[1]
+-- -------------------- IMPORTANT -------------------------------------------------------------------------
 
 
 ----------------------------------- MOSAIC VARS (DO NOT TOUCH)
@@ -39,7 +35,17 @@ mosaic_data_inlet_size = 0
 
 ----------------------------------- MY VARS
 
--- add here your variables
+-- in this example ( examples/visualProgramming/ComputerVision/opticalFlow )
+-- we are receiving the data in the following order:
+
+-- flow data vector from "optical flow" Mosaic object is constructed as follows:
+--
+--
+-- [1] -> motion detection
+-- [2] -> number of rows of flow matrix
+-- [3] -> number of cols of flow matrix
+-- [4 - 3 + ()(cols*rows / 10) * 4)] -> flow lines
+
 
 ----------------------------------- MY VARS
 
@@ -63,11 +69,6 @@ function update()
 
 	------------------------------------------------ MOSAIC CODE
 	mosaic_data_inlet_size = getMosaicDataInletSize()
-
-	-- send data to _mosaic_data_outlet if needed
-	-- we are using here just the first position of the table
-	-- but you can expand it with numerical data as you need it
-	_mosaic_data_outlet[1] = of.random(10)
 	------------------------------------------------ MOSAIC CODE
 
 	------------------------------------------------ MY CODE
@@ -88,9 +89,45 @@ function draw()
 	------------------------------------------------ MY CODE
 
 	-- draw background first
-	mosaicBackground(0,0,0,255)
+	mosaicBackground(200*_mosaic_data_inlet[1],0,0,20)
 
 	-- add here your draw code
+	----------------------------------------- Drawing optical flow
+
+	-- in this example ( examples/visualProgramming/ComputerVision/opticalFlow )
+	-- we are receiving the data in the following order:
+
+	-- flow data vector from "optical flow" Mosaic object is constructed as follows:
+	--
+	--
+	-- [1] -> motion detection
+	-- [2] -> number of rows of flow matrix
+	-- [3] -> number of cols of flow matrix
+	-- [4 - 3 + ()(cols*rows / 10) * 4)] -> flow lines
+
+	of.setLineWidth(4)
+	of.fill()
+	of.setColor(255)
+
+	rows = _mosaic_data_inlet[2]
+	cols = _mosaic_data_inlet[3]
+
+	flowSize = (rows*cols)/10 * 4
+
+	of.pushMatrix()
+	of.scale(OUTPUT_WIDTH/320,OUTPUT_WIDTH/240,1.0)
+
+	for j=0, flowSize-1, 4 do
+		x1 = _mosaic_data_inlet[4+j]
+		y1 = _mosaic_data_inlet[4+j+1]
+		x2 = _mosaic_data_inlet[4+j+2]
+		y2 = _mosaic_data_inlet[4+j+3]
+		if x1 and x2 and y1 and y2 then
+			of.drawLine(x1,y1,x2,y2)
+		end
+	end
+
+	of.popMatrix()
 
 	------------------------------------------------ MY CODE
 
@@ -138,38 +175,6 @@ function mouseScrolled(x,y)
 
 end
 
-----------------------------------------------------
-
--- MOSAIC custom methods
-
-function mosaicBackground(r,g,b,a)
-	of.setColor(r,g,b,a)
-	of.drawRectangle(0,0,OUTPUT_WIDTH,OUTPUT_HEIGHT)
-end
-
-function checkMosaicDataInlet()
-	-- first check if we are using the data inlet
-	if USING_DATA_INLET then
-		-- avoid null readings
-		if next(_mosaic_data_inlet) == nil then
-			return
-		end
-	end
-end
-
-function getMosaicDataInletSize()
-	if USING_DATA_INLET then
-		checkMosaicDataInlet()
-		-- get _mosaic_data_inlet size
-		tableSize = 0
-		for k,v in pairs(_mosaic_data_inlet) do
-			tableSize = tableSize + 1
-		end
-		return tableSize
-	else
-		return 0
-	end
-end
 
 ----------------------------------------------------
 
