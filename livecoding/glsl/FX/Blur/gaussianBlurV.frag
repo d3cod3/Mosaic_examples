@@ -1,4 +1,4 @@
-#version 120
+#version 150
 
 #define HORIZONTAL_BLUR_5
 
@@ -31,7 +31,13 @@ uniform sampler2DRect tex0;
 uniform float param1f0;//sigma@
 uniform float param1f1;//size@
 
-float u_sigma = param1f0/3.0;
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
+
+float u_sigma = param1f0/3.0 + 0.001;
 float u_blurSize = param1f1*2.0;
 
 void main(void) {
@@ -43,16 +49,16 @@ void main(void) {
     vec4 avgValue = vec4(0.0, 0.0, 0.0, 0.0);
     float coefficientSum = 0.0;
 
-    avgValue += texture2DRect(tex0, gl_TexCoord [0].st) * incrementalGaussian.x;
+    avgValue += texture(tex0, texCoordVarying) * incrementalGaussian.x;
     coefficientSum += incrementalGaussian.x;
     incrementalGaussian.xy *= incrementalGaussian.yz;
 
     for (float i = 1.0; i <= numBlurPixelsPerSide; i++) {
-        avgValue += texture2DRect(tex0, gl_TexCoord [0].st - i * u_blurSize * blurMultiplyVec) * incrementalGaussian.x;
-        avgValue += texture2DRect(tex0, gl_TexCoord [0].st + i * u_blurSize * blurMultiplyVec) * incrementalGaussian.x;
+        avgValue += texture(tex0, texCoordVarying - i * u_blurSize * blurMultiplyVec) * incrementalGaussian.x;
+        avgValue += texture(tex0, texCoordVarying + i * u_blurSize * blurMultiplyVec) * incrementalGaussian.x;
         coefficientSum += 2.0 * incrementalGaussian.x;
         incrementalGaussian.xy *= incrementalGaussian.yz;
     }
 
-    gl_FragColor = avgValue / coefficientSum;
+    outputColor = avgValue / coefficientSum;
 }

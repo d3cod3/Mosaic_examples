@@ -1,16 +1,19 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
-
 uniform float param1f0;//amount@
+
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
+
 float kernel[9];
 vec2 offset[9];
 
 void main(void){
-    vec2  st = gl_TexCoord[0].st;
+    vec2  st = texCoordVarying;
     vec4 sum = vec4(0.0);
 
     offset[0] = vec2(-1.0, -1.0);
@@ -29,17 +32,17 @@ void main(void){
 
     int i = 0;
     for (i = 0; i < 4; i++){
-        vec4 tmp = texture2DRect(tex0, st + offset[i]);
+        vec4 tmp = texture(tex0, st + offset[i]);
         sum += tmp * kernel[i];
     }
 
     for (i = 5; i < 9; i++){
-        vec4 tmp = texture2DRect(tex0, st + offset[i]);
+        vec4 tmp = texture(tex0, st + offset[i]);
         sum += tmp * kernel[i];
     }
 
-    vec4 color0 = texture2DRect(tex0, st + offset[4]);
+    vec4 color0 = texture(tex0, st + offset[4]);
     sum += color0 * kernel[4];
 
-    gl_FragColor = (1.0 - param1f0) * color0 +  param1f0 * vec4(sum.rgb, color0.a);
+    outputColor = (1.0 - param1f0) * color0 +  param1f0 * vec4(sum.rgb, color0.a);
 }

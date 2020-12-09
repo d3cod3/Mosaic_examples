@@ -1,12 +1,12 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform float time;
 uniform float param1f0;//seed@
 uniform float param1f1;//speed@
 uniform float param1f2;//shrink@
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
 
 vec3 mod289(vec3 x) {
   return x - floor(x * (1.0 / 289.0)) * 289.0;
@@ -95,6 +95,5 @@ float snoise(vec3 v) {
 }
 
 void main(void){
-  vec2 st = gl_TexCoord[0].st;
-  gl_FragColor = vec4(vec3(snoise(vec3((st * pow((param1f2/30.0), 2.0)), time * param1f1 + param1f0))), 1);
+  outputColor = vec4(vec3(snoise(vec3((texCoordVarying * pow((param1f2/30.0), 2.0)), time * param1f1 + param1f0))), 1);
 }

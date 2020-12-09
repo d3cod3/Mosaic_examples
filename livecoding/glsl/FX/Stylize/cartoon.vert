@@ -1,41 +1,44 @@
-#version 120
+#version 150
 
-varying vec3 v;
-varying vec3 N;
+uniform mat4 modelViewProjectionMatrix;
 
-uniform float texelWidth;
-uniform float texelHeight;
+in vec4 position;
+in vec2 texcoord;
 
-varying vec2 leftTextureCoordinate;
-varying vec2 rightTextureCoordinate;
+out vec2 texCoordVarying;
 
-varying vec2 topTextureCoordinate;
-varying vec2 topLeftTextureCoordinate;
-varying vec2 topRightTextureCoordinate;
+out vec2 leftTextureCoordinate;
+out vec2 rightTextureCoordinate;
 
-varying vec2 bottomTextureCoordinate;
-varying vec2 bottomLeftTextureCoordinate;
-varying vec2 bottomRightTextureCoordinate;
+out vec2 topTextureCoordinate;
+out vec2 topLeftTextureCoordinate;
+out vec2 topRightTextureCoordinate;
+
+out vec2 bottomTextureCoordinate;
+out vec2 bottomLeftTextureCoordinate;
+out vec2 bottomRightTextureCoordinate;
+
+uniform float param1f1;
+uniform float param1f2;
 
 void main() {
-  gl_TexCoord[0] = gl_MultiTexCoord0;
-  gl_Position = ftransform();
+  texCoordVarying = texcoord;
 
-  vec2 widthStep = vec2(texelWidth, 0.0);
-  vec2 heightStep = vec2(0.0, texelHeight);
-  vec2 widthHeightStep = vec2(texelWidth, texelHeight);
-  vec2 widthNegativeHeightStep = vec2(texelWidth, -texelHeight);
+	gl_Position = modelViewProjectionMatrix * position;
 
-  //textureCoordinate = inputTextureCoordinate.xy;
-  vec2 textureCoordinate = vec2(gl_MultiTexCoord0);
-  leftTextureCoordinate = textureCoordinate - widthStep;
-  rightTextureCoordinate = textureCoordinate + widthStep;
+  vec2 widthStep = vec2(param1f1*3, 0.0);
+  vec2 heightStep = vec2(0.0, param1f2*3);
+  vec2 widthHeightStep = vec2(param1f1*3, param1f2*3);
+  vec2 widthNegativeHeightStep = vec2(param1f1*3, -param1f2*3);
 
-  topTextureCoordinate = textureCoordinate - heightStep;
-  topLeftTextureCoordinate = textureCoordinate - widthHeightStep;
-  topRightTextureCoordinate = textureCoordinate + widthNegativeHeightStep;
+  leftTextureCoordinate = texcoord - widthStep;
+  rightTextureCoordinate = texcoord + widthStep;
 
-  bottomTextureCoordinate = textureCoordinate + heightStep;
-  bottomLeftTextureCoordinate = textureCoordinate - widthNegativeHeightStep;
-  bottomRightTextureCoordinate = textureCoordinate + widthHeightStep;
+  topTextureCoordinate = texcoord - heightStep;
+  topLeftTextureCoordinate = texcoord - widthHeightStep;
+  topRightTextureCoordinate = texcoord + widthNegativeHeightStep;
+
+  bottomTextureCoordinate = texcoord + heightStep;
+  bottomLeftTextureCoordinate = texcoord - widthNegativeHeightStep;
+  bottomRightTextureCoordinate = texcoord + widthHeightStep;
 }

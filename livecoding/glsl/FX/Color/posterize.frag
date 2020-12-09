@@ -1,18 +1,19 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
 uniform float param1f0;//level@
 
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
 
 void main() {
-	float colorLevels = param1f0/3.0;
+	float colorLevels = param1f0/3.0 + 0.5;
 
-	vec2 uv = gl_TexCoord[0].xy;
-	vec4 textureColor = texture2DRect(tex0, uv);
+	vec4 textureColor = texture(tex0, texCoordVarying);
 
-	gl_FragColor = floor((textureColor * colorLevels) + vec4(0.5)) / colorLevels;
+	outputColor = floor((textureColor * colorLevels) + vec4(0.5)) / colorLevels;
 
 }

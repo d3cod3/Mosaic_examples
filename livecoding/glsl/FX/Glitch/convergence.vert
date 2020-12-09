@@ -1,19 +1,29 @@
-#version 120
+#version 150
 
-/*
-    Glitch Shader from ofxPostGlitch shaders collection from JeongHo Park <https://github.com/jeonghopark/ofxPostGlitch>
-    adapted for Mosaic platform
-*/
+// these are for the programmable pipeline system and are passed in
+// by default from OpenFrameworks
+uniform mat4 modelViewMatrix;
+uniform mat4 projectionMatrix;
+uniform mat4 textureMatrix;
+uniform mat4 modelViewProjectionMatrix;
 
-varying vec3 v;
-varying vec3 N;
+in vec4 position;
+in vec4 color;
+in vec4 normal;
+in vec2 texcoord;
+// this is the end of the default functionality
 
-void main(void){
+// this is something we're creating for this shader
+out vec2 varyingtexcoord;
 
-    v = vec3(gl_ModelViewMatrix * gl_Vertex);
-    N = normalize(gl_NormalMatrix * gl_Normal);
+// this is coming from our C++ code
 
-    gl_TexCoord[0] = gl_MultiTexCoord0;
-
-    gl_Position = ftransform();
+void main()
+{
+    // here we move the texture coordinates
+    varyingtexcoord = vec2(texcoord.x, texcoord.y);
+    
+    // send the vertices to the fragment shader
+    gl_Position = modelViewProjectionMatrix * position;
 }
+

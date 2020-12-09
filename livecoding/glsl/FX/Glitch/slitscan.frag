@@ -1,24 +1,17 @@
-#version 120
-
-/*
-    Glitch Shader from ofxPostGlitch shaders collection from JeongHo Park <https://github.com/jeonghopark/ofxPostGlitch>
-    adapted for Mosaic platform
-*/
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
-uniform float param1f0;//slit@
+uniform float param1f0;//slitH@
 
+in vec2 varyingtexcoord;
+out vec4 outputColor;
 
-void main(){
+void main (void){
 
-	float slit_h = param1f0;
+	float slit_h = param1f0*100.0;
 
-    vec2 coord = gl_TexCoord[0].st;
-    vec2 texCoord = vec2(3.0+floor(coord.x/slit_h)*slit_h ,coord.y);
-    vec4 col = texture2DRect(tex0,texCoord);
+  vec2 texCoord = vec2(3.0+floor(varyingtexcoord.x/slit_h)*slit_h ,varyingtexcoord.y);
+  vec4 col = texture(tex0, texCoord);
 
-    gl_FragColor.rgba = col.rgba;
+  outputColor = col.rgba;
 }

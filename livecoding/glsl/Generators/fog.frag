@@ -1,11 +1,9 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform float time;
-uniform vec2 mouse;
 uniform vec2 resolution;
+
+out vec4 outputColor;
 
 float rand(vec2 co){
 	return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
@@ -60,5 +58,5 @@ void main() {
 	col = color2;
 	col = mix(col,color3,clamp(length(q),0.0,1.0));
 	col = mix(col,color4,clamp(length(r.x),0.0,1.0));
-	gl_FragColor =  vec4((0.2*f*f*f+0.6*f*f+0.5*f)*col,1.0);
+	outputColor =  vec4((0.2*f*f*f+0.6*f*f+0.5*f)*col,1.0);
 }

@@ -1,25 +1,4 @@
-/*
-	----------------------------------------------------------
-	Mosaic | OF Visual Patching Developer Platform
-
-	Copyright (c) 2019 Emanuele Mazza aka n3m3da
-
-	Mosaic is distributed under the MIT License. This gives everyone the
-  freedoms to use Mosaic in any context: commercial or non-commercial,
-  public or private, open or closed source.
-
-  See https://github.com/d3cod3/Mosaic for documentation
-	----------------------------------------------------------
-
-
-	empty.fs: A Fragment Shader template for Mosaic,
-
-*/
-
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
 
@@ -28,6 +7,9 @@ uniform float param1f1;//phase@
 
 uniform vec2 resolution;
 uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
 
 const int   oct  = 8;
 const float per  = 0.5;
@@ -77,7 +59,7 @@ void main(){
 	float Volume = param1f0/6;
 	float Phase = param1f1;
 
-	vec2 st = gl_TexCoord[0].st;
+	vec2 st = texCoordVarying;
 	vec2 t = vec2(floor(st.y/ 10.0)* 10.0+floor(Phase*15.0)*1200.0,floor(st.x/400.0)*200.0+floor(Phase*15.0)*1200.0);
 	float ns = noise(t)*Volume*300.0;
 
@@ -85,15 +67,15 @@ void main(){
 
 	if (ns < 70.0){
 		float shift = 30.0;
-		col.r = texture2DRect(tex0, vec2(st.x-shift,st.y)).r;
-		col.b = texture2DRect(tex0, vec2(st.x-shift,st.y)).b;
-		col.g = texture2DRect(tex0, vec2(st.x-shift,st.y)).g;
+		col.r = texture(tex0, vec2(st.x-shift,st.y)).r;
+		col.b = texture(tex0, vec2(st.x-shift,st.y)).b;
+		col.g = texture(tex0, vec2(st.x-shift,st.y)).g;
 		}else{
-			col.r = texture2DRect(tex0, vec2(st.x,st.y)).r;
-			col.b = texture2DRect(tex0, vec2(st.x,st.y)).b;
-			col.g = texture2DRect(tex0, vec2(st.x,st.y)).g;
+			col.r = texture(tex0, vec2(st.x,st.y)).r;
+			col.b = texture(tex0, vec2(st.x,st.y)).b;
+			col.g = texture(tex0, vec2(st.x,st.y)).g;
 		}
 
-	gl_FragColor = vec4(col,1.0);
+	outputColor = vec4(col,1.0);
 
 }

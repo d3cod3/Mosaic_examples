@@ -1,23 +1,26 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
 uniform sampler2DRect tex1;
 
-float size = 32.0;
+float size = 64.0;
+
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
 
 void main(void){
-    vec2 st = gl_FragCoord.st;
+  vec3 rawColor = texture(tex0, texCoordVarying).rgb;
+  float rawAlpha = texture(tex0, texCoordVarying).a;
 
-    vec4 srcColor = texture2DRect(tex0, st);
-
-    float x = srcColor.r * (size-1.0);
-    float y = srcColor.g * (size-1.0);
-    float z = srcColor.b * (size-1.0);
-
-    vec3 color = texture2DRect(tex1, vec2(floor(x)+1.0 +(floor(y)+1.0)*size, floor(z)+1.0)).rgb;
-
-    gl_FragColor = vec4( color , 1.0);
+  if (rawAlpha <= 0.0) {
+    outputColor = vec4(rawColor, 0.0);
+  }else {
+    vec3 originalColor = floor(texture(tex0, texCoordVarying).rgb * vec3(size - 1.0));
+    vec2 blueIndex = vec2(mod(originalColor.b, sqrt(size)), floor(originalColor.b / sqrt(size)));
+    vec2 index = vec2((size * blueIndex.x + originalColor.r) + 0.5, (size * blueIndex.y + originalColor.g) + 0.5);
+    outputColor = vec4(texture(tex1, index).rgb, rawAlpha);
+  }
 }

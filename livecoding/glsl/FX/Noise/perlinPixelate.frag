@@ -1,33 +1,14 @@
-/*
-	----------------------------------------------------------
-	Mosaic | OF Visual Patching Developer Platform
-
-	Copyright (c) 2019 Emanuele Mazza aka n3m3da
-
-	Mosaic is distributed under the MIT License. This gives everyone the
-  freedoms to use Mosaic in any context: commercial or non-commercial,
-  public or private, open or closed source.
-
-  See https://github.com/d3cod3/Mosaic for documentation
-	----------------------------------------------------------
-
-
-	perlinpixelate.frag: Perlin pixellation for Mosaic,
-
-*/
-
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
-
 uniform float param1f0;//amount@
 uniform float param1f1;//scale@
 
 uniform vec2 resolution;
 uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
 
 vec4 mod289(vec4 x){
   return x - floor(x * (1.0 / 289.0)) * 289.0;
@@ -85,7 +66,7 @@ float cnoise(vec2 P){
 }
 
 void main(){
-	vec2 uv = gl_TexCoord[0].st;
+	vec2 uv = texCoordVarying;
 
 	float scale = param1f1/100 + 0.01;
 	float fractionalWidthOfPixel = param1f0*8 + 1;
@@ -94,7 +75,7 @@ void main(){
 	vec2 sampleDivisor = vec2((((n + 1.0) / 2.0) + 0.5) * fractionalWidthOfPixel);
 
     vec2 samplePos = uv - mod(uv, sampleDivisor);
-	vec4 textureColor = texture2DRect(tex0, samplePos);
+	vec4 textureColor = texture(tex0, samplePos);
 
-	gl_FragColor = textureColor;
+	outputColor = textureColor;
 }

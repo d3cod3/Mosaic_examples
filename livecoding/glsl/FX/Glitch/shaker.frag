@@ -1,38 +1,34 @@
-#version 120
-
-/*
-    Glitch Shader from ofxPostGlitch shaders collection from JeongHo Park <https://github.com/jeonghopark/ofxPostGlitch>
-    adapted for Mosaic platform
-*/
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
-uniform float param1f0;//blur_x@
-uniform float param1f1;//blur_y@
 
-float pix_w,pix_h;
+uniform float param1f0;//random@
+uniform float param1f1;//shakeX@
+uniform float param1f2;//shakeY@
 
-void main(){
+uniform vec2 resolution;
+uniform float time;
 
-    float blurX = param1f0;
-    float blurY = param1f1;
+in vec2 varyingtexcoord;
+out vec4 outputColor;
 
-    pix_w = 1.0;
-    pix_h = 1.0;
+void main (void){
 
-    vec2 coord = gl_TexCoord[0].st;
-    vec4 col = texture2DRect(tex0,coord);
+    vec2 texCoord = vec2(varyingtexcoord.x, varyingtexcoord.y);
+
+    vec4 col = texture(tex0, texCoord);
+
+    vec2 blur_vec = vec2(param1f1,param1f2);
+    float rando = param1f0;
 
     vec4 col_s[5],col_s2[5];
     for (int i = 0;i < 5;i++){
-        col_s[i] = texture2DRect(tex0,coord +  vec2(-pix_w*float(i)*blurX ,-pix_h*float(i)*blurY));
-        col_s2[i] = texture2DRect(tex0,coord + vec2( pix_w*float(i)*blurX , pix_h*float(i)*blurY));
+        col_s[i] = texture(tex0,texCoord +  vec2(-1.0*float(i)*blur_vec.x*rando*rando ,-1.0*float(i)*blur_vec.y*rando*rando));
+        col_s2[i] = texture(tex0,texCoord + vec2( 1.0*float(i)*blur_vec.x*rando*rando , 1.0*float(i)*blur_vec.y*rando*rando));
     }
     col_s[0] = (col_s[0] + col_s[1] + col_s[2] + col_s[3] + col_s[4])/5.0;
     col_s2[0]= (col_s2[0]+ col_s2[1]+ col_s2[2]+ col_s2[3]+ col_s2[4])/5.0;
     col = (col_s[0] + col_s2[0]) / 2.0;
 
-    gl_FragColor.rgba = col.rgba;
+    outputColor = col.rgba;
 }

@@ -1,12 +1,13 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
-uniform vec2 resolution;
-
 uniform float param1f0;//scale@
+
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
 
 
 vec4 mod289(vec4 x){
@@ -68,13 +69,9 @@ float cnoise(vec2 P){
 
 void main() {
 
-  float scale = param1f0;
+  vec4 sourceImageColor = texture(tex0, texCoordVarying);
 
-  vec2 uv = gl_TexCoord[0].xy;
+  float n = cnoise(vec2(sourceImageColor.r,sourceImageColor.b) * param1f0);
 
-  vec4 sourceImageColor = texture2DRect(tex0, uv);
-
-  float n = cnoise(vec2(sourceImageColor.r,sourceImageColor.b) * scale);
-
-  gl_FragColor = vec4(vec3(n), 1);
+  outputColor = vec4(vec3(n), 1);
 }

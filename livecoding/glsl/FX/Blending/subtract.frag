@@ -1,14 +1,17 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
 uniform sampler2DRect tex1;
 
-void main()
-{
-	vec4 color0 = texture2DRect(tex0,gl_TexCoord[0].st);
-	vec4 color1 = texture2DRect(tex1,gl_TexCoord[0].st);
-	gl_FragColor = color0 - color1;
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
+
+void main(){
+	vec4 color0 = texture(tex0, texCoordVarying);
+	vec4 color1 = texture(tex1, texCoordVarying);
+
+	outputColor = vec4(abs(color0 - color1).rgb,1.0);
 }

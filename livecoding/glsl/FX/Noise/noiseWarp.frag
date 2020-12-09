@@ -1,7 +1,4 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
 uniform float param1f0;//freq@
@@ -10,6 +7,9 @@ uniform float param1f2;//speed@
 
 uniform vec2 resolution;
 uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
 
 vec3 mod289(vec3 x) {
   return x - floor(x * (1.0 / 289.0)) * 289.0;
@@ -105,9 +105,9 @@ float snoise(vec3 v)
 
 void main(void){
 
-  vec2 texCoords = gl_TexCoord[0].st + vec2(
-    (param1f1*10) * (snoise(vec3(param1f0 * gl_TexCoord[0].s, param1f0 * gl_TexCoord[0].t, param1f2 * time))),
-    (param1f1*10) * (snoise(vec3(param1f0 * gl_TexCoord[0].s + 17.0, param1f0 * gl_TexCoord[0].t, param1f2 * time)))
+  vec2 texCoords = texCoordVarying + vec2(
+    (param1f1*10) * (snoise(vec3(param1f0 * texCoordVarying.x, param1f0 * texCoordVarying.y, param1f2 * time))),
+    (param1f1*10) * (snoise(vec3(param1f0 * texCoordVarying.x + 17.0, param1f0 * texCoordVarying.y, param1f2 * time)))
     );
-    gl_FragColor = texture2DRect(tex0, texCoords);
+    outputColor = texture(tex0, texCoords);
 }

@@ -1,12 +1,15 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
 uniform float param1f0;//contrast@
 uniform float param1f1;//bright@
 uniform float param1f2;//sat@
+
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
 
 const vec3 LumCoeff = vec3(0.2125, 0.7154, 0.0721);
 
@@ -16,7 +19,7 @@ void main(){
 	float brightness = 1.0 + param1f1/5.0;
 	float saturation = param1f2/5.0;
 
-	vec4 color = texture2DRect(tex0,gl_TexCoord[0].st);
+	vec4 color = texture(tex0,texCoordVarying);
 
 	///////////////////////////////////////////////
 	// brightness, saturation, contrast
@@ -28,5 +31,5 @@ void main(){
 	vec3 conColor = mix(AvgLumin, satColor, contrast);
 	vec4 correctedColor = vec4(conColor.rgb,color.a);
 
-	gl_FragColor =  vec4(correctedColor.r , correctedColor.g, correctedColor.b, correctedColor.a);
+	outputColor =  vec4(correctedColor.r , correctedColor.g, correctedColor.b, correctedColor.a);
 }

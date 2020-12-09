@@ -1,8 +1,4 @@
-#version 120
-#extension GL_ARB_texture_rectangle : enable
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 #define BlendLinearDodgef BlendAddf
 #define BlendLinearBurnf BlendSubstractf
@@ -162,10 +158,16 @@ uniform sampler2DRect tex0;
 uniform sampler2DRect tex1;
 uniform int param1i0;//mode@
 
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
+
 void main(){
     int mode = param1i0;
-    vec4 baseCol = texture2DRect(tex0, gl_TexCoord[0].st);
-    vec4 blendCol = texture2DRect(tex1, gl_TexCoord[0].st);
+    vec4 baseCol = texture(tex0, texCoordVarying);
+    vec4 blendCol = texture(tex1, texCoordVarying);
 
     vec3 result;
     if (mode == 0){
@@ -221,5 +223,5 @@ void main(){
     } else {
         result = BlendNormal(baseCol.rgb, blendCol.rgb);
     }
-    gl_FragColor = vec4(result.rgb, baseCol.a);
+    outputColor = vec4(result.rgb, baseCol.a);
 }

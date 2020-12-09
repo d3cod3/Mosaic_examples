@@ -1,32 +1,25 @@
-#version 120
-
-/*
-    Glitch Shader from ofxPostGlitch shaders collection from JeongHo Park <https://github.com/jeonghopark/ofxPostGlitch>
-    adapted for Mosaic platform
-*/
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
-uniform float param1f0;//timer@
-uniform float param1f1;//rand@
-uniform float param1f2;//twist@
-uniform float param1f3;//mult@
+uniform float param1f0;//random@
+uniform float param1f1;//v1@
+uniform float param1f2;//v2@
 
-void main(){
+uniform vec2 resolution;
+uniform float time;
 
-    float timer = param1f0;
-    float rand = param1f1/10;
-    float twist = param1f2;
-    float mult = param1f3;
+in vec2 varyingtexcoord;
+out vec4 outputColor;
 
-    vec2 coord = gl_TexCoord[0].st;
-    vec2 texCoord = vec2(max(3.0,coord.x+sin(coord.y/(153.25*rand*rand)*rand+rand*twist+timer*3.0)*mult),
-						  max(3.0,coord.y+cos(coord.x/(251.57*rand*rand)*rand+rand*twist+timer*2.4)*mult)-3.);
+void main (void){
+
+  float rando = param1f0;
+  float val2 = param1f1;
+  float val3 = param1f2;
+
+  vec2 texCoord = vec2(max(3.0,min(float(resolution.x)  ,varyingtexcoord.x+sin(varyingtexcoord.y/(153.25*rando*rando)*rando+rando*val2+time*3.0)*val3)),
+						  max(3.0,min(float(resolution.y),varyingtexcoord.y+cos(varyingtexcoord.x/(251.57*rando*rando)*rando+rando*val2+time*2.4)*val3)-3.));
 
 
-    vec4 col = texture2DRect(tex0,texCoord);
-
-    gl_FragColor.rgba = col.rgba;
+  outputColor = texture(tex0, texCoord);
 }

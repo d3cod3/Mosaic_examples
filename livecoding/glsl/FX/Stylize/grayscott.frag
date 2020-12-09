@@ -1,7 +1,4 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 float kernel[9];
 vec2 offset[9];
@@ -9,13 +6,19 @@ vec2 offset[9];
 uniform sampler2DRect backbuffer;
 uniform sampler2DRect tex0;
 
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
+
 float diffU = 0.25;
 float diffV = 0.04;
 float k = 0.047;
 float f = 0.1;
 
 void main(void){
-    vec2 st   = gl_TexCoord[0].st;
+    vec2 st  = texCoordVarying;
 
     kernel[0] = 0.707106781;
     kernel[1] = 1.0;
@@ -37,13 +40,13 @@ void main(void){
     offset[7] = vec2(  0.0, 1.0);
     offset[8] = vec2(  1.0, 1.0);
 
-    vec2 texColor		= texture2DRect( backbuffer, st ).rb;
-    float srcTexColor   = texture2DRect( tex0, st ).r;
+    vec2 texColor		= texture( backbuffer, st ).rb;
+    float srcTexColor   = texture( tex0, st ).r;
 
     vec2 lap            = vec2( 0.0, 0.0 );
 
     for( int i=0; i < 9; i++ ){
-        vec2 tmp    = texture2DRect( backbuffer, st + offset[i] ).rb;
+        vec2 tmp    = texture( backbuffer, st + offset[i] ).rb;
         lap         += tmp * kernel[i];
     }
 
@@ -61,5 +64,5 @@ void main(void){
     u += du * 0.6;
     v += dv * 0.6;
 
-    gl_FragColor.rgba = vec4(clamp( u, 0.0, 1.0 ), 1.0 - u/v ,clamp( v, 0.0, 1.0 ), 1.0);
+    outputColor = vec4(clamp( u, 0.0, 1.0 ), 1.0 - u/v ,clamp( v, 0.0, 1.0 ), 1.0);
 }

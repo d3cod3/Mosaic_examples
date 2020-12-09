@@ -1,20 +1,23 @@
-#version 120
-
-varying vec3 v;
-varying vec3 N;
+#version 150
 
 uniform sampler2DRect tex0;
 uniform sampler2DRect tex1;
 uniform sampler2DRect tex2;
 uniform sampler2DRect tex3;
 
+uniform vec2 resolution;
+uniform float time;
+
+in vec2 texCoordVarying;
+out vec4 outputColor;
+
 void main(void){
-	vec2 st = gl_TexCoord[0].st;
+	vec2 st = texCoordVarying;
 
-	float r = texture2DRect(tex0, st).r;
-	float g = texture2DRect(tex1, st).r;
-	float b = texture2DRect(tex2, st).r;
-	float a = texture2DRect(tex3, st).r;
+	float r = texture(tex0, st).r;
+	float g = texture(tex1, st).r;
+	float b = texture(tex2, st).r;
+	float a = texture(tex3, st).r;
 
-	gl_FragColor = vec4(r,g,b,a);
+	outputColor = vec4(r,g,b,a);
 }
