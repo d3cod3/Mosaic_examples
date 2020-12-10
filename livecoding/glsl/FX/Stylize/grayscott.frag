@@ -5,6 +5,10 @@ vec2 offset[9];
 
 uniform sampler2DRect backbuffer;
 uniform sampler2DRect tex0;
+uniform float param1f0;//diffU@
+uniform float param1f1;//diffV@
+uniform float param1f2;//feed@
+uniform float param1f3;//kill@
 
 uniform vec2 resolution;
 uniform float time;
@@ -12,13 +16,13 @@ uniform float time;
 in vec2 texCoordVarying;
 out vec4 outputColor;
 
-float diffU = 0.25;
-float diffV = 0.04;
-float k = 0.047;
-float f = 0.1;
-
 void main(void){
     vec2 st  = texCoordVarying;
+
+    float diffU = param1f0/10.0;
+    float diffV = param1f1/10.0;
+    float k = param1f3/10.0;
+    float f = param1f2/10.0;
 
     kernel[0] = 0.707106781;
     kernel[1] = 1.0;
