@@ -496,10 +496,6 @@
         <link>
             <type>2</type>
             <name>analysisData</name>
-            <to>
-                <id>15</id>
-                <inlet>0</inlet>
-            </to>
         </link>
     </outlets>
     <vars>
@@ -678,32 +674,6 @@
         <link>
             <type>0</type>
             <name>amount</name>
-        </link>
-    </inlets>
-</object>
-<object>
-    <id>15</id>
-    <name>tristimulus extractor</name>
-    <filepath>none</filepath>
-    <position>
-        <x>1075.000000000</x>
-        <y>619.000000000</y>
-    </position>
-    <outlets>
-        <link>
-            <type>2</type>
-            <name>tristimulus</name>
-            <to>
-                <id>11</id>
-                <inlet>2</inlet>
-            </to>
-        </link>
-    </outlets>
-    <vars />
-    <inlets>
-        <link>
-            <type>2</type>
-            <name>data</name>
         </link>
     </inlets>
 </object>
