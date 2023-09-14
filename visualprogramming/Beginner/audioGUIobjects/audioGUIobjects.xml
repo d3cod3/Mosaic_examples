@@ -3,13 +3,13 @@
 <settings>
     <output_width>1280</output_width>
     <output_height>720</output_height>
-    <dsp>1</dsp>
+    <dsp>0</dsp>
     <audio_in_device>0</audio_in_device>
     <audio_out_device>0</audio_out_device>
     <sample_rate_in>44100</sample_rate_in>
     <sample_rate_out>44100</sample_rate_out>
     <buffer_size>1024</buffer_size>
-    <input_channels>0</input_channels>
+    <input_channels>1</input_channels>
     <output_channels>2</output_channels>
     <bpm>120</bpm>
 </settings>
@@ -21,8 +21,24 @@
         <x>-235.000000000</x>
         <y>405.000000000</y>
     </position>
-    <outlets />
     <subpatch>root</subpatch>
+    <outlets>
+        <link>
+            <type>4</type>
+            <to>
+                <id>11</id>
+                <inlet>0</inlet>
+            </to>
+            <to>
+                <id>3</id>
+                <inlet>0</inlet>
+            </to>
+            <to>
+                <id>8</id>
+                <inlet>0</inlet>
+            </to>
+        </link>
+    </outlets>
     <vars />
     <inlets>
         <link>
@@ -104,10 +120,11 @@
             </to>
         </link>
     </outlets>
+    <subpatch>root</subpatch>
     <vars>
         <var>
             <name>GAIN</name>
-            <value>10.862999916</value>
+            <value>6.189000130</value>
         </var>
     </vars>
     <inlets>
@@ -244,7 +261,7 @@
     <vars>
         <var>
             <name>MULTIPLIER</name>
-            <value>1.960999966</value>
+            <value>5.806000233</value>
         </var>
     </vars>
     <inlets>
@@ -268,6 +285,7 @@
             <name>RMS</name>
         </link>
     </outlets>
+    <subpatch>root</subpatch>
     <vars />
     <inlets>
         <link>
@@ -360,6 +378,7 @@
             <name>RMSAmplitude</name>
         </link>
     </outlets>
+    <subpatch>root</subpatch>
     <vars />
     <inlets>
         <link>
