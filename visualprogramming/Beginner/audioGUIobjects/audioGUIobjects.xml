@@ -9,7 +9,7 @@
     <sample_rate_in>44100</sample_rate_in>
     <sample_rate_out>44100</sample_rate_out>
     <buffer_size>1024</buffer_size>
-    <input_channels>1</input_channels>
+    <input_channels>0</input_channels>
     <output_channels>2</output_channels>
     <bpm>120</bpm>
 </settings>
@@ -21,24 +21,8 @@
         <x>-235.000000000</x>
         <y>405.000000000</y>
     </position>
-    <outlets>
-        <link>
-            <type>4</type>
-            <name>IN CHANNEL 1</name>
-            <to>
-                <id>3</id>
-                <inlet>0</inlet>
-            </to>
-            <to>
-                <id>8</id>
-                <inlet>0</inlet>
-            </to>
-            <to>
-                <id>11</id>
-                <inlet>0</inlet>
-            </to>
-        </link>
-    </outlets>
+    <outlets />
+    <subpatch>root</subpatch>
     <vars />
     <inlets>
         <link>
@@ -256,7 +240,13 @@
             </to>
         </link>
     </outlets>
-    <vars />
+    <subpatch>root</subpatch>
+    <vars>
+        <var>
+            <name>MULTIPLIER</name>
+            <value>1.960999966</value>
+        </var>
+    </vars>
     <inlets>
         <link>
             <type>2</type>
